@@ -164,8 +164,8 @@ module Ohm
     end
 
     class Set < Collection
-      def each(&block)
-        key.smembers.each { |id| block.call(model[id]) }
+      def each
+        key.smembers.each { |id| yield model[id] }
       end
 
       def [](id)
@@ -284,8 +284,8 @@ module Ohm
     end
 
     class List < Collection
-      def each(&block)
-        key.lrange(0, -1).each { |id| block.call(model[id]) }
+      def each
+        key.lrange(0, -1).each { |id| yield model[id] }
       end
 
       def <<(model)
